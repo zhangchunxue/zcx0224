@@ -1,7 +1,9 @@
 package io.zcx.jcartstoreback.dao;
 
 import io.zcx.jcartstoreback.po.Order;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface OrderMapper {
     int deleteByPrimaryKey(Long orderId);
 
