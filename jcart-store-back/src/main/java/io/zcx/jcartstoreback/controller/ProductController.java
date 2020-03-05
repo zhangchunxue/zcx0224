@@ -1,5 +1,6 @@
 package io.zcx.jcartstoreback.controller;
 
+import com.github.pagehelper.Page;
 import io.zcx.jcartstoreback.dto.in.ProductSearchInDTO;
 import io.zcx.jcartstoreback.dto.out.PageOutDTO;
 import io.zcx.jcartstoreback.dto.out.ProductListOutDTO;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
+@CrossOrigin
 public class ProductController {
 
     @Autowired
@@ -17,13 +19,20 @@ public class ProductController {
 
     @GetMapping("/search")
     public PageOutDTO<ProductListOutDTO> search(ProductSearchInDTO productSearchInDTO,
-                                                @RequestParam Integer pageNum){
-        return null;
+                                                @RequestParam(required = false, defaultValue = "1") Integer pageNum){
+        Page<ProductListOutDTO> page = productService.search(pageNum);
+        PageOutDTO<ProductListOutDTO> pageOutDTO = new PageOutDTO<>();
+        pageOutDTO.setTotal(page.getTotal());
+        pageOutDTO.setPageSize(page.getPageSize());
+        pageOutDTO.setPageNum(page.getPageNum());
+        pageOutDTO.setList(page);
+
+        return pageOutDTO;
     }
 
     @GetMapping("/getById")
     public ProductShowOutDTO getById(@RequestParam Integer productId){
-        ProductShowOutDTO productShowOutDTO = productService.getById(productId);
+        ProductShowOutDTO productShowOutDTO = productService.getShowById(productId);
         return productShowOutDTO;
     }
 

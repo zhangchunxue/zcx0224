@@ -1,8 +1,11 @@
 package io.zcx.jcartstoreback.service.service;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import io.zcx.jcartstoreback.dao.ProductDetailMapper;
 import io.zcx.jcartstoreback.dao.ProductMapper;
+import io.zcx.jcartstoreback.dto.out.ProductListOutDTO;
 import io.zcx.jcartstoreback.dto.out.ProductShowOutDTO;
 import io.zcx.jcartstoreback.po.Product;
 import io.zcx.jcartstoreback.po.ProductDetail;
@@ -22,7 +25,13 @@ public class ProductServiceImpl implements ProductService {
     private ProductDetailMapper productDetailMapper;
 
     @Override
-    public ProductShowOutDTO getById(Integer productId) {
+    public Product getById(Integer productId) {
+        Product product = productMapper.selectByPrimaryKey(productId);
+        return product;
+    }
+
+    @Override
+    public ProductShowOutDTO getShowById(Integer productId) {
 
         Product product = productMapper.selectByPrimaryKey(productId);
         ProductDetail productDetail = productDetailMapper.selectByPrimaryKey(productId);
@@ -43,5 +52,12 @@ public class ProductServiceImpl implements ProductService {
         productShowOutDTO.setOtherPicUrls(otherPicUrls);
 
         return productShowOutDTO;
+    }
+
+    @Override
+    public Page<ProductListOutDTO> search(Integer pageNum) {
+        PageHelper.startPage(pageNum, 10);
+        Page<ProductListOutDTO> page = productMapper.search();
+        return page;
     }
 }
