@@ -1,12 +1,20 @@
 package io.zcx.jcartadministrationback.dto.out;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Date;
+
 public class OrderListOutDTO {
     private Long orderId;
     private Integer customerId;
     private String customerName;
     private Byte status;
-    private Double totalPirce;
+    private Double totalPrice;
+    @JsonIgnore
+    private Date createTime;
     private Long createTimestamp;
+    @JsonIgnore
+    private Date updateTime;
     private Long updateTimestamp;
 
     public Long getOrderId() {
@@ -41,12 +49,20 @@ public class OrderListOutDTO {
         this.status = status;
     }
 
-    public Double getTotalPirce() {
-        return totalPirce;
+    public Double getTotalPrice() {
+        return totalPrice;
     }
 
-    public void setTotalPirce(Double totalPirce) {
-        this.totalPirce = totalPirce;
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Long getCreateTimestamp() {
@@ -55,6 +71,14 @@ public class OrderListOutDTO {
 
     public void setCreateTimestamp(Long createTimestamp) {
         this.createTimestamp = createTimestamp;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public Long getUpdateTimestamp() {

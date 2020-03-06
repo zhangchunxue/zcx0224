@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class OrderHistory {
     private Long orderHistoryId;
-    private Integer orderId;
+    private Long orderId;
     private Date time;
     private Byte orderStatus;
     private String comment;
@@ -18,11 +18,11 @@ public class OrderHistory {
         this.orderHistoryId = orderHistoryId;
     }
 
-    public Integer getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 

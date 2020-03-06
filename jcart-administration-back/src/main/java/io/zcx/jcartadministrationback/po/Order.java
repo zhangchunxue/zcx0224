@@ -6,10 +6,18 @@ public class Order {
     private Long orderId;
     private Integer customerId;
     private Byte status;
-    private Double totalPoints;
+    private Double totalPrice;
     private Integer rewordPoints;
     private Date createTime;
     private Date updateTime;
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
 
     public Long getOrderId() {
         return orderId;
@@ -33,14 +41,6 @@ public class Order {
 
     public void setStatus(Byte status) {
         this.status = status;
-    }
-
-    public Double getTotalPoints() {
-        return totalPoints;
-    }
-
-    public void setTotalPoints(Double totalPoints) {
-        this.totalPoints = totalPoints;
     }
 
     public Integer getRewordPoints() {
