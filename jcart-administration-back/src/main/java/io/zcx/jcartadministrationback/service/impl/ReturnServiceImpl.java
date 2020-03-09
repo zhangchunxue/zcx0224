@@ -3,19 +3,31 @@ package io.zcx.jcartadministrationback.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import io.zcx.jcartadministrationback.dao.ReturnMapper;
+import io.zcx.jcartadministrationback.dto.in.ReturnSearchInDTO;
 import io.zcx.jcartadministrationback.po.Return;
 import io.zcx.jcartadministrationback.service.ReturnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class ReturnServiceImpl implements ReturnService {
     @Autowired
     private ReturnMapper returnMapper;
     @Override
-    public Page<Return> search(Integer pageNum) {
+    public Page<Return> search(ReturnSearchInDTO returnSearchInDTO, Integer pageNum) {
         PageHelper.startPage(pageNum, 10);
-        Page<Return> page = returnMapper.search();
+        Page<Return> page = returnMapper.search(
+                returnSearchInDTO.getReturnId(),
+                returnSearchInDTO.getOrderId(),
+                (returnSearchInDTO.getStartTimestamp() == null) ? null : new Date(returnSearchInDTO.getStartTimestamp()),
+                returnSearchInDTO.getEndTimestamp() == null ? null : new Date(returnSearchInDTO.getEndTimestamp()),
+                returnSearchInDTO.getStatus(),
+                returnSearchInDTO.getProductCode(),
+                returnSearchInDTO.getCustomerName(),
+                returnSearchInDTO.getProductName()
+        );
         return page;
     }
 

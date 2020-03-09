@@ -25,7 +25,7 @@ public class ProductController {
     public PageOutDTO<ProductListOutDTO> search(ProductSearchInDTO productSearchInDTO,
                                                 @RequestParam(required = false, defaultValue = "1") Integer pageNum){
 
-        Page<ProductListOutDTO> page = productService.search(pageNum);
+        Page<ProductListOutDTO> page = productService.search(productSearchInDTO,pageNum);
         PageOutDTO<ProductListOutDTO> pageOutDTO = new PageOutDTO<>();
         pageOutDTO.setTotal(page.getTotal());
         pageOutDTO.setPageSize(page.getPageSize());
@@ -37,27 +37,28 @@ public class ProductController {
 
     @GetMapping("/getById")
     public ProductShowOutDTO getById(@RequestParam Integer productId){
-
-        return null;
+        ProductShowOutDTO productShowOutDTO = productService.getById(productId);
+        return productShowOutDTO;
     }
 
     @PostMapping("/create")
     public Integer create(@RequestBody ProductCreateInDTO productCreateInDTO){
-        return null;
+        Integer productId = productService.create(productCreateInDTO);
+        return productId;
     }
 
     @PostMapping("/update")
     public void update(@RequestBody ProductUpdateInDTO productUpdateInDTO){
-
+        productService.update(productUpdateInDTO);
     }
 
     @PostMapping("/delete")
     public void delete(@RequestBody Integer productId){
-
+        productService.delete(productId);
     }
 
     @PostMapping("/batchDelete")
     public void batchDelete(@RequestBody List<Integer> productIds){
-
+        productService.batchDelete(productIds);
     }
 }

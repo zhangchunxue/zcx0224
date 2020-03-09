@@ -2,6 +2,7 @@ package io.zcx.jcartadministrationback.service;
 
 import com.github.pagehelper.Page;
 import io.zcx.jcartadministrationback.dto.in.ProductCreateInDTO;
+import io.zcx.jcartadministrationback.dto.in.ProductSearchInDTO;
 import io.zcx.jcartadministrationback.dto.in.ProductUpdateInDTO;
 import io.zcx.jcartadministrationback.dto.out.ProductListOutDTO;
 import io.zcx.jcartadministrationback.dto.out.ProductShowOutDTO;
@@ -17,7 +18,7 @@ public interface ProductService {
 
     void batchDelete(List<Integer> productIds);
 
-    Page<ProductListOutDTO> search(Integer pageNum);
+    Page<ProductListOutDTO> search(ProductSearchInDTO productSearchInDTO, Integer pageNum);
 
     ProductShowOutDTO getById(Integer productId);
 }
