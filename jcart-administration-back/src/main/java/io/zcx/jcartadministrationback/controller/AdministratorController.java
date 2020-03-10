@@ -106,6 +106,7 @@ public class AdministratorController {
         mailSender.send(message);
         //todo send messasge to MQ
         emailPwdResetCodeMap.put(email, hex);
+        return "ok";
     }
 
     @PostMapping("/resetPwd")
