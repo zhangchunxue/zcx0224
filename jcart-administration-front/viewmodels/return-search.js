@@ -2,54 +2,60 @@ var app = new Vue({
     el: '#app',
     data: {
         pageInfo: '',
-        pageNum: 1,
+        returnId: '',
+        orderId: '',
+        customerName: '',
         productCode: '',
         productName: '',
-        price: '',
-        stockQuantity: '',
         selectedStatus: '',
         statuses: [
-            { value: 0, label: '下架' },
-            { value: 1, label: '上架' },
-            { value: 2, label: '待审核' }
-        ]
-
+            { value: 0, label: '待处理' },
+            { value: 1, label: '待取货' },
+            { value: 2, label: '正在处理' },
+            { value: 3, label: '完成' },
+            { value: 4, label: '拒绝' }
+        ],
+        startTime: '',
+        endTime: '',
+        pageNum: 1
     },
     mounted() {
         console.log('view mounted');
-        this.searchProduct();
+        this.searchReturn();
     },
     methods: {
         handleSearchClick() {
             console.log('search click');
             this.pageNum = 1;
-            this.searchProduct();
-        },
-        handleEdit(index, row) {
-            console.log('product edit click', index, row);
-            location.href = 'product-update.html?productId=' + row.productId;
+            this.searchReturn();
         },
         handleClearClick() {
             console.log('clear click');
+            this.returnId = '';
+            this.orderId = '';
+            this.customerName = '';
             this.productCode = '';
             this.productName = '';
-            this.price = '';
-            this.stockQuantity = '';
             this.selectedStatus = '';
+            this.startTime = '';
+            this.endTime = '';
         },
         handlePageChange(val) {
-            console.log('page change');
+            console.log('page changed', val);
             this.pageNum = val;
-            this.searchProduct();
+            this.searchReturn();
         },
-        searchProduct() {
-            axios.get('/product/search', {
+        searchReturn() {
+            axios.get('/return/search', {
                 params: {
+                    returnId: this.returnId,
+                    orderId: this.orderId,
+                    customerName: this.customerName,
                     productCode: this.productCode,
                     productName: this.productName,
-                    price: this.price,
-                    stockQuantity: this.stockQuantity,
                     status: this.selectedStatus,
+                    startTimestamp: this.startTime ? this.startTime.getTime() : '',
+                    endTimestamp: this.endTime ? this.endTime.getTime() : '',
                     pageNum: this.pageNum
                 }
             })
